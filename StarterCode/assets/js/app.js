@@ -27,7 +27,7 @@ var chartGroup = svg.append("g")
                  .attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
 
 
-var x_axis = "age";
+var x_axis = "income";
 
 function xScale(healthData, x_axis){
     var xLinearScale = d3.scaleLinear()
@@ -59,16 +59,15 @@ function renderCircles(circlesGroup, newXScale, x_axis){
 d3.csv("assets/data/data.csv").then(function(healthData){
     console.log("heathdata test");
     healthData.forEach(function(d){
-        d.age = +d.age;
-        d.smokes = +d.smokes;
-        d.income = +d.income;
+        d.poverty = +d.income;
+        d.obesityHigh = +d.obesityHigh;
         d.abbr = +d.abbr;
     });
     console.log("test1")
     var xLinearScale = xScale(healthData, x_axis);
 
     var yLinearScale = d3.scaleLinear()
-        .domain([0, d3.max(healthData, d =>d.smokes)])
+        .domain([0, d3.max(healthData, d =>d.obesityHigh)])
         .range([chartHeight, 0]);
 
     
@@ -91,10 +90,10 @@ d3.csv("assets/data/data.csv").then(function(healthData){
         .enter()
         .append("circle")
         .attr("class", "circle")
-        .attr("cx", d=>xLinearScale(d.age))
-        .attr("cy", d=>yLinearScale(d.smokes))
+        .attr("cx", d=>xLinearScale(d.income))
+        .attr("cy", d=>yLinearScale(d.obesityHigh))
         .attr("r", "10")
-        .attr("fill", "blue")
+        .attr("fill", "green")
         .attr("stroke", "black");
     chartGroup.append("g")
     .attr("transform", `translate(${chartWidth/2}, ${chartHeight})`);
@@ -102,17 +101,17 @@ d3.csv("assets/data/data.csv").then(function(healthData){
 chartGroup.append("text")
 .attr("x", 375)
 .attr("y",600)
-.attr("value", "age")
-.text("Median Age")
+.attr("value", "income")
+.text("Income in $")
 
 
 
 chartGroup.append("text")
 .attr("transform", "rotate(-90)")
 .attr("y", 0 - chartMargin.left-5)
-.attr("x", 0 - (chartHeight/2))
+.attr("x", 0 - (chartHeight/1.5))
 .attr("dy", "1em")
-.text("Smokers per Capita")
+.text("Highest Avg. Body Mass Index")
 xLinearScale = xScale(healthData, x_axis);
 
 chartGroup.selectAll("text")
