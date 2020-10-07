@@ -67,8 +67,8 @@ d3.csv("assets/data/data.csv").then(function(healthData){
     var xLinearScale = xScale(healthData, x_axis);
 
     var yLinearScale = d3.scaleLinear()
-        .domain([0, d3.max(healthData, d =>d.obesityHigh)])
-        .range([chartHeight, 0]);
+        .domain([20, d3.max(healthData, d =>d.obesityHigh)])
+        .range([chartHeight, 20]);
 
     
     var bottomAxis = d3.axisBottom(xLinearScale);
