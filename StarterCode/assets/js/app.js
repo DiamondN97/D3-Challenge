@@ -27,7 +27,6 @@ var svg = d3
 var chartGroup = svg.append("g")
                  .attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
 
-
 var x_axis = "income";
 
 function xScale(healthData, x_axis){
@@ -39,14 +38,17 @@ function xScale(healthData, x_axis){
 }
 
 d3.csv("assets/data/data.csv").then(function(healthData){
-    console.log("heathdata test");
+    console.log("healthdata test line 42");
     healthData.forEach(function(d){
         d.poverty = +d.income;
         d.obesityHigh = +d.obesityHigh;
-        d.abbr = +d.abbr;
-    });
-    console.log("test1")
-    var xLinearScale = xScale(healthData, x_axis);
+        abbr = +d.abbr;
+        state = +d.state
+        // console.log("in function abbr", d.abbr)
+        
+
+    // console.log(d.abbr)
+    var xLinearScale = xScale(healthData, "income");
 
     var yLinearScale = d3.scaleLinear()
         .domain([20, d3.max(healthData, d =>d.obesityHigh)])
@@ -72,17 +74,25 @@ d3.csv("assets/data/data.csv").then(function(healthData){
         .data(healthData)
         .enter()
         .append("circle")
-        // .append("text")
+        // .append("state")
         .attr("class", "circle")
         .attr("cx", d=>xLinearScale(d.income))
         .attr("cy", d=>yLinearScale(d.obesityHigh))
-        .attr("r", "10")
-        .attr("fill", "green")
+        .attr("text", d=>d.abbr)
+        // console.log(d=>d.abbr)
+
+        .attr("r", "12",)
+        .attr("fill", "none")
         .attr("stroke", "black")
+                
         
+            console.log(d.abbr)
+
+
+       
     chartGroup.append("g")
     .attr("transform", `translate(${chartWidth/2}, ${chartHeight})`);
-
+});
 chartGroup.append("text")
 .attr("y", 0 + chartMargin.bottom+475)
 .attr("x", 0 + (chartHeight))
@@ -102,4 +112,4 @@ xLinearScale = xScale(healthData, x_axis);
 chartGroup.selectAll("text")
   
 });
-console.log("bottom test")
+// console.log("bottom test line 107")
