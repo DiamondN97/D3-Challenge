@@ -1,5 +1,5 @@
 
-var svgWidth = 1800;
+var svgWidth = 960;
 var svgHeight = 660;
 // console.log("width", svgWidth);
 // console.log("height" ,svgHeight);
@@ -70,23 +70,23 @@ d3.csv("assets/data/data.csv").then(function(healthData){
     // var abbr = healthData;
     // console.log(healthData);
 
-    chartGroup.selectAll(".circle")
+
+    chartGroup.selectAll(".statecircle")
         .data(healthData)
         .enter()
         .append("circle")
+        // .append("text", d.abbr)
         // .append("state")
         .attr("class", "circle")
         .attr("cx", d=>xLinearScale(d.income))
         .attr("cy", d=>yLinearScale(d.obesityHigh))
         .attr("text", d=>d.abbr)
-        // console.log(d=>d.abbr)
-
         .attr("r", "12",)
         .attr("fill", "none")
         .attr("stroke", "black")
                 
         
-            console.log(d.abbr)
+            // console.log(d.abbr)
 
 
        
@@ -97,12 +97,12 @@ chartGroup.append("text")
 .attr("y", 0 + chartMargin.bottom+475)
 .attr("x", 0 + (chartHeight))
 .attr("value", "income")
-.text("Income in $", "bold")
+.text("Income in $")
 
 
 
 chartGroup.append("text")
-.attr("transform", "rotate(-90)", "bold")
+.attr("transform", "rotate(-90)")
 .attr("y", 0 - chartMargin.left)
 .attr("x", 0 - (chartHeight/1.5))
 .attr("dy", "1em")
