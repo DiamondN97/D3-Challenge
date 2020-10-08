@@ -1,16 +1,16 @@
 
-var svgWidth = 960;
+var svgWidth = 1800;
 var svgHeight = 660;
 // console.log("width", svgWidth);
 // console.log("height" ,svgHeight);
 
 
 var chartMargin = {
-    top: 30,
-    right: 30,
-    bottom: 70,
-    left: 70
-};
+    top: 20,
+    right: 40,
+    bottom: 100,
+    left: 80
+  };
 
 var chartWidth = svgWidth - chartMargin.left - chartMargin.right;
 var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
@@ -20,6 +20,7 @@ var svg = d3
           .select("#scatter")
           .append("svg")
           .attr("height", svgHeight)
+          
           .attr("width", svgWidth);
 
 
@@ -36,25 +37,6 @@ function xScale(healthData, x_axis){
                     .range([0, chartWidth]);
     return xLinearScale;
 }
-
-function renderAxes(newXScale, xAxis){
-    var bottomAxis = d3.axisBottom(newXScale);
-
-    xAxis.transition()
-         .duration(1000)
-         .call(bottomAxis);
-    return xAxis;
-}
-
-function renderCircles(circlesGroup, newXScale, x_axis){
-    circlesGroup.transition()
-                .duration(1000)
-                .attr("cx", d=>newXScale(d[x_axis]));
-
-    return circlesGroup;
-}
-
-
 
 d3.csv("assets/data/data.csv").then(function(healthData){
     console.log("heathdata test");
@@ -83,35 +65,38 @@ d3.csv("assets/data/data.csv").then(function(healthData){
     chartGroup.append("g")
     .call(leftAxis);
 
-    
+    // var abbr = healthData;
+    // console.log(healthData);
 
     chartGroup.selectAll(".circle")
         .data(healthData)
         .enter()
         .append("circle")
+        // .append("text")
         .attr("class", "circle")
         .attr("cx", d=>xLinearScale(d.income))
         .attr("cy", d=>yLinearScale(d.obesityHigh))
         .attr("r", "10")
         .attr("fill", "green")
-        .attr("stroke", "black");
+        .attr("stroke", "black")
+        
     chartGroup.append("g")
     .attr("transform", `translate(${chartWidth/2}, ${chartHeight})`);
 
 chartGroup.append("text")
-.attr("x", 375)
-.attr("y",600)
+.attr("y", 0 + chartMargin.bottom+475)
+.attr("x", 0 + (chartHeight))
 .attr("value", "income")
-.text("Income in $")
+.text("Income in $", "bold")
 
 
 
 chartGroup.append("text")
-.attr("transform", "rotate(-90)")
-.attr("y", 0 - chartMargin.left-5)
+.attr("transform", "rotate(-90)", "bold")
+.attr("y", 0 - chartMargin.left)
 .attr("x", 0 - (chartHeight/1.5))
 .attr("dy", "1em")
-.text("Highest Avg. Body Mass Index")
+.text("Avg. Highest Body Mass Index")
 xLinearScale = xScale(healthData, x_axis);
 
 chartGroup.selectAll("text")
