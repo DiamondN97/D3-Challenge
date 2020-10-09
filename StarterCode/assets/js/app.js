@@ -71,7 +71,7 @@ d3.csv("assets/data/data.csv").then(function(healthData){
     // console.log(healthData);
 
 
-    chartGroup.selectAll(".statecircle")
+    chartGroup.selectAll(".circle")
         .data(healthData)
         .enter()
         .append("circle")
@@ -80,13 +80,23 @@ d3.csv("assets/data/data.csv").then(function(healthData){
         .attr("class", "circle")
         .attr("cx", d=>xLinearScale(d.income))
         .attr("cy", d=>yLinearScale(d.obesityHigh))
-        .attr("text", d=>d.abbr)
-        .attr("r", "12",)
-        .attr("fill", "none")
-        .attr("stroke", "black")
-                
+        // .attr("text", d=>d.abbr)
+        .attr("r", "14",)
+        .attr("fill", "blue")
+        .attr("opacity", ".5")
+        .attr("stroke", "black");
+        // console.log(d.abbr)
+    
+    chartGroup.selectAll('.stateText')
+        .data(healthData)
+        .enter()
+        .append('text')
+        .classed('stateText', true)
+        .text(d=>d.abbr)
+        .attr("dx", d=>xLinearScale(d.income))
+        .attr("dy", d=>yLinearScale(d.obesityHigh)+2);
         
-            // console.log(d.abbr)
+    // console.log("abbr test", d.abbr)
 
 
        
@@ -95,7 +105,7 @@ d3.csv("assets/data/data.csv").then(function(healthData){
 });
 chartGroup.append("text")
 .attr("y", 0 + chartMargin.bottom+475)
-.attr("x", 0 + (chartHeight))
+.attr("x", 0 + (chartHeight-100))
 .attr("value", "income")
 .text("Income in $")
 
