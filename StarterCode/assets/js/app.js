@@ -1,5 +1,5 @@
 
-var svgWidth = 960;
+var svgWidth = 2000;
 var svgHeight = 660;
 // console.log("width", svgWidth);
 // console.log("height" ,svgHeight);
@@ -8,8 +8,8 @@ var svgHeight = 660;
 var chartMargin = {
     top: 20,
     right: 40,
-    bottom: 100,
-    left: 80
+    bottom: 90,
+    left: 180
   };
 
 var chartWidth = svgWidth - chartMargin.left - chartMargin.right;
@@ -94,7 +94,7 @@ d3.csv("assets/data/data.csv").then(function(healthData){
         .classed('stateText', true)
         .text(d=>d.abbr)
         .attr("dx", d=>xLinearScale(d.income))
-        .attr("dy", d=>yLinearScale(d.obesityHigh)+2);
+        .attr("dy", d=>yLinearScale(d.obesityHigh)+4);
         
     // console.log("abbr test", d.abbr)
 
@@ -104,8 +104,8 @@ d3.csv("assets/data/data.csv").then(function(healthData){
     .attr("transform", `translate(${chartWidth/2}, ${chartHeight})`);
 });
 chartGroup.append("text")
-.attr("y", 0 + chartMargin.bottom+475)
-.attr("x", 0 + (chartHeight-100))
+.attr("y", 0 + chartMargin.bottom+500)
+.attr("x", 0 + (chartHeight+250))
 .attr("value", "income")
 .text("Income in $")
 
@@ -113,7 +113,7 @@ chartGroup.append("text")
 
 chartGroup.append("text")
 .attr("transform", "rotate(-90)")
-.attr("y", 0 - chartMargin.left)
+.attr("y", 0 - chartMargin.left/2)
 .attr("x", 0 - (chartHeight/1.5))
 .attr("dy", "1em")
 .text("Avg. Highest Body Mass Index")
