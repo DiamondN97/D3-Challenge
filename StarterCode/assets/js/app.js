@@ -1,5 +1,5 @@
 
-var svgWidth = 2000;
+var svgWidth = 1900;
 var svgHeight = 660;
 // console.log("width", svgWidth);
 // console.log("height" ,svgHeight);
